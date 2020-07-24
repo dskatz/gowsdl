@@ -379,7 +379,7 @@ func (s *Client) call(ctx context.Context, soapAction string, request, response 
 	}
 
 	if err := dec.Decode(respEnvelope); err != nil {
-		fmt.Println("error decoding")
+		fmt.Println("error decoding ", respEnvelope)
 		return err
 	}
 
