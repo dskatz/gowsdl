@@ -367,6 +367,7 @@ func (s *Client) call(ctx context.Context, soapAction string, request, response 
 
 	mtomBoundary, err := getMtomHeader(res.Header.Get("Content-Type"))
 	if err != nil {
+		fmt.Println("failed mtom")
 		return err
 	}
 
@@ -384,6 +385,7 @@ func (s *Client) call(ctx context.Context, soapAction string, request, response 
 
 	fault := respEnvelope.Body.Fault
 	if fault != nil {
+		fmt.Println("body fault , ", fault)
 		return fault
 	}
 
