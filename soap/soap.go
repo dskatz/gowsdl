@@ -308,15 +308,18 @@ func (s *Client) call(ctx context.Context, soapAction string, request, response 
 	}
 
 	if err := encoder.Encode(envelope); err != nil {
+		fmt.Println("Error encoding envelope, ", envelope)
 		return err
 	}
 
 	if err := encoder.Flush(); err != nil {
+		fmt.Println("error flushing ", err)
 		return err
 	}
 
 	req, err := http.NewRequest("POST", s.url, buffer)
 	if err != nil {
+		fmt.Println("error creating http request.")
 		return err
 	}
 	if s.opts.auth != nil {
@@ -354,6 +357,7 @@ func (s *Client) call(ctx context.Context, soapAction string, request, response 
 
 	res, err := client.Do(req)
 	if err != nil {
+		fmt.Println("err client.Do")
 		return err
 	}
 	defer res.Body.Close()
@@ -374,6 +378,7 @@ func (s *Client) call(ctx context.Context, soapAction string, request, response 
 	}
 
 	if err := dec.Decode(respEnvelope); err != nil {
+		fmt.Println("error decoding")
 		return err
 	}
 
