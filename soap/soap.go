@@ -77,6 +77,8 @@ Loop:
 				consumed = true
 			} else {
 				if err = d.DecodeElement(b.Content, &se); err != nil {
+					fmt.Println("failed decoding element")
+					fmt.Println(b.Content)
 					return err
 				}
 
@@ -374,7 +376,9 @@ func (s *Client) call(ctx context.Context, soapAction string, request, response 
 	var dec SOAPDecoder
 	if mtomBoundary != "" {
 		dec = newMtomDecoder(res.Body, mtomBoundary)
+		fmt.Println("created mtom decoder")
 	} else {
+		fmt.Println("created xml decoder")
 		dec = xml.NewDecoder(res.Body)
 	}
 
